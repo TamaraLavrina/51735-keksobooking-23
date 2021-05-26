@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Тамара Верещак](https://up.htmlacademy.ru/javascript/23/user/51735).
-* Наставник: `Неизвестно`.
+* Наставник: [Владимир Артюхов](https://htmlacademy.ru/profile/artman).
 
 ---
 
