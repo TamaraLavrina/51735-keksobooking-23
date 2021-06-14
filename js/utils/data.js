@@ -33,9 +33,13 @@ const DESCRIPTIONS = [
   'можно всех и с детьми, и с кошкамии, и на девичник тоже',
 ];
 
+const SIMILAR_ADV_COUNT = 10;
+
 export{TYPES};
 export{TIME};
 export{FEATURES};
 export{PHOTOS};
 export{DESCRIPTIONS};
+export{SIMILAR_ADV_COUNT};
+
 
