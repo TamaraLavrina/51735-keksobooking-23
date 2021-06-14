@@ -14,4 +14,4 @@ const createAdvertisement = () => {
 
 const similaraAvertisement = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvertisement());
 
-console.log(similaraAvertisement);
+similaraAvertisement;
