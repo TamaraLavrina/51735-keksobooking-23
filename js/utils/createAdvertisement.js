@@ -43,6 +43,16 @@ const createOffer = () => {
   return offer;
 };
 
+
+const createAdvertisement = () => {
+  const location = createLocation();
+  const offer = createOffer();
+  const author = createAvatar();
+
+  return { author, offer, location };
+};
+
 export{createOffer};
 export{createLocation};
 export{createAvatar};
+export{createAdvertisement};
