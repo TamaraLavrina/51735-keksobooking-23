@@ -6,7 +6,7 @@ import {DESCRIPTIONS} from './data.js';
 import {getRandomFloat} from './getRandom.js';
 import {getRandomArrayElement} from './getRandom.js';
 import {getRandomElement} from './getRandom.js';
-
+import {SIMILAR_ADV_COUNT} from './data.js';
 
 const createAvatar = () => {
   const advAvatar = getRandomFloat(1, 10, 0);
@@ -43,7 +43,6 @@ const createOffer = () => {
   return offer;
 };
 
-
 const createAdvertisement = () => {
   const location = createLocation();
   const offer = createOffer();
@@ -52,7 +51,6 @@ const createAdvertisement = () => {
   return { author, offer, location };
 };
 
-export{createOffer};
-export{createLocation};
-export{createAvatar};
-export{createAdvertisement};
+const similarAvertisement = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvertisement());
+export {similarAvertisement};
+export {createAdvertisement};
