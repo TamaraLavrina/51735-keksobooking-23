@@ -1,8 +1,17 @@
-import{createAdvertisement} from './utils/createAdvertisement.js';
-import{SIMILAR_ADV_COUNT} from './utils/data.js';
+import{createAdvert} from './utils/createAdvertisement.js';
+import  './createPopup.js';
+import {blockPageEements} from './map.js';
+import {unlockPageEements} from './map.js';
+import { renderCard} from './createPopup.js';
 
+//const SIMILAR_ADV_COUNT = 10;
+//const similarAvertisement = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvert());
+//similarAvertisement
+// пока в итоге массив то нам и не нужен, но в задании он был, оставлю в виде коммента
 
-const similaraAvertisement = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvertisement());
+renderCard(createAdvert());
 
-similaraAvertisement;
+blockPageEements();
+unlockPageEements();
+
 
