@@ -1,5 +1,5 @@
-import{createAdvertisement} from './utils/createAdvertisement.js';
-
+import{createAdvert} from './utils/createAdvertisement.js';
+createAdvert();
 
 const translateType = {
   flat: 'Квартира',
@@ -18,16 +18,13 @@ const renderCard = (advert) => {
     .querySelector('.popup');
   const newPopup = popup.cloneNode(true); //клонируем объявление
   //заполнение объявления данными:
-  !advert.offer.title
-    ? newPopup.querySelector('.popup__title').textContent.remove()
-    : newPopup.querySelector('.popup__title').textContent = advert.offer.title;
+  newPopup.querySelector('.popup__title').textContent = isValue(advert.offer.title);
   newPopup.querySelector('.popup__text--price').textContent = isValue(`${advert.offer.price}${'₽/ночь'}`);
   newPopup.querySelector('.popup__text--address').textContent = isValue(advert.offer.address);
   newPopup.querySelector('.popup__type').textContent = isValue(translateType[advert.offer.type]);
   newPopup.querySelector('.popup__text--capacity').textContent = isValue(`${advert.offer.rooms} ${'комнаты для'} ${advert.offer.guests} ${'гостей'}`);
   newPopup.querySelector('.popup__text--time').textContent = isValue(`Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`);
   newPopup.querySelector('.popup__description').textContent = isValue(advert.offer.description);
-
 
   //список удобств
 
@@ -59,7 +56,5 @@ const renderCard = (advert) => {
 
   map.appendChild(newPopup);
 };
-
-createAdvertisement();
 
 export { renderCard };

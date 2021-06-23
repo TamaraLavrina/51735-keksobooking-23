@@ -37,9 +37,7 @@ const DESCRIPTIONS = [
   'можно всех и с детьми, и с кошкамии, и на девичник тоже',
 ];
 
-const SIMILAR_ADV_COUNT = 10;
-
-
+/*
 const createAvatar = () => {
   const advAvatar = getRandomFloat(1, 10, 0);
   const advAvatarString = String(advAvatar);
@@ -48,44 +46,56 @@ const createAvatar = () => {
   };
 };
 
-const createLocation = () => {
+//const createLocation = () => {
+//  const location = {
+//    lat: getRandomFloat(35.65000, 35.70000, 5),
+//    lng: getRandomFloat(139.70000, 139.80000, 5),
+//  };
+//
+//  return  location;
+//};
+*/
+const createAdvert = () => {
+  const advAvatar = getRandomFloat(1, 10, 0);
+  const advAvatarString = String(advAvatar);
+  const avatar = {
+    avatar: `img/avatars/user${advAvatarString.padStart( 2 , '0')}.png`,
+  };
   const location = {
     lat: getRandomFloat(35.65000, 35.70000, 5),
     lng: getRandomFloat(139.70000, 139.80000, 5),
   };
 
-  return  location;
-};
+  const title = 'Предложение №';
+  const address = `${location.lat}, ${location.lng}`;
+  const price = getRandomFloat(1, 1000000, 0);
+  const type = getRandomArrayElement(TYPES);
+  const rooms = getRandomElement();
+  const guests = getRandomElement();
+  const checkin = getRandomArrayElement(TIME);
+  const checkout = getRandomArrayElement(TIME);
+  const features =FEATURES;
+  const description = getRandomArrayElement(DESCRIPTIONS);
+  const photos = PHOTOS;
 
-const createOffer = () => {
-  const location = createLocation();
-  const offer = {
-    title: 'Предложение №',
-    address: `${location.lat}, ${location.lng}`,
-    price: getRandomFloat(1, 1000000, 0),
-    type: getRandomArrayElement(TYPES),
-    rooms: getRandomElement(),
-    guests: getRandomElement(),
-    checkin: getRandomArrayElement(TIME),
-    checkout: getRandomArrayElement(TIME),
-    features: FEATURES,
-    description: getRandomArrayElement(DESCRIPTIONS),
-    photos: PHOTOS,
+  return {
+    author: avatar,
+    offer: {
+      title,
+      address,
+      price,
+      type,
+      rooms,
+      guests,
+      checkin,
+      checkout,
+      features,
+      description,
+      photos,
+    },
+    location,
   };
-  return offer;
+
 };
 
-const createAdvertisement = () => {
-  const advert = {
-    location:createLocation(),
-    offer:createOffer(),
-    author:  createAvatar(),
-  };
-
-  return advert;
-};
-
-createAdvertisement();
-const similarAvertisement = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvertisement());
-export {similarAvertisement};
-export {createAdvertisement};
+export {createAdvert};

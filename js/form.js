@@ -1,20 +1,4 @@
-const MIN_NAME_LENGTH = 30;
-const MAX_NAME_LENGTH = 100;
 const MAX_PRICE_VALUE = 1000000;
-
-const titleInput = document.querySelector('#title');
-
-titleInput.addEventListener('input', () => {
-  const valueLength = titleInput.value.length;
-
-  if (valueLength < MIN_NAME_LENGTH) {
-    titleInput.setCustomValidity(`Ещё ${  MIN_NAME_LENGTH - valueLength } симв.`);
-  } else if (valueLength > MAX_NAME_LENGTH) {
-    titleInput.setCustomValidity(`Удалите лишние ${  valueLength - MAX_NAME_LENGTH } симв.`);
-  } else if (valueLength > MIN_NAME_LENGTH && valueLength <= MAX_NAME_LENGTH) {
-    titleInput.reportValidity();
-  }
-});
 
 const priceInput = document.querySelector('#price');
 priceInput.addEventListener('input', () => {
@@ -35,7 +19,6 @@ const capacitySelect = document.querySelector('#capacity');
 
 roomNumberSelect.addEventListener('change', () =>{
   if (roomNumberSelect.value === Option.value1) {
-
     capacitySelect.setCustomValidity('для 1 гостя');
   }
   else if(roomNumberSelect.value === Option.value2) {
@@ -51,7 +34,7 @@ roomNumberSelect.addEventListener('change', () =>{
     roomNumberSelect.reportValidity();
   }
 });
-
+/*
 document.querySelector('.add-form').addEventListener("submit", (evt) => {
   // Каждый раз, когда пользователь пытается отправить данные, мы проверяем
    // валидность полей.
@@ -66,3 +49,4 @@ document.querySelector('.add-form').addEventListener("submit", (evt) => {
   }
 }, false);
 
+*/
