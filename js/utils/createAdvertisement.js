@@ -20,9 +20,9 @@ const FEATURES = [
   'wifi',
   'dishwasher',
   'parking',
-  'washer',
-  'elevator',
-  'conditioner',
+  //'washer',
+  //'elevator',
+  // 'conditioner',
 ];
 
 const PHOTOS = [
@@ -68,21 +68,24 @@ const createOffer = () => {
     guests: getRandomElement(),
     checkin: getRandomArrayElement(TIME),
     checkout: getRandomArrayElement(TIME),
-    features: getRandomArrayElement(FEATURES),
+    features: FEATURES,
     description: getRandomArrayElement(DESCRIPTIONS),
-    photos: getRandomArrayElement(PHOTOS),
+    photos: PHOTOS,
   };
   return offer;
 };
 
 const createAdvertisement = () => {
-  const location = createLocation();
-  const offer = createOffer();
-  const author = createAvatar();
+  const advert = {
+    location:createLocation(),
+    offer:createOffer(),
+    author:  createAvatar(),
+  };
 
-  return { author, offer, location };
+  return advert;
 };
 
+createAdvertisement();
 const similarAvertisement = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvertisement());
 export {similarAvertisement};
 export {createAdvertisement};
