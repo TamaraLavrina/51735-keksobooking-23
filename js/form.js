@@ -8,7 +8,7 @@ const timeInSelect = document.querySelector('#timein');
 const timeOutSelect = document.querySelector('#timeout');
 const roomNumberSelect = document.querySelector('#room_number');
 const capacitySelect = document.querySelector('#capacity');
-const adHousingType = document.querySelector('#type');
+const getHousingType = document.querySelector('#type');
 const priceInput = document.querySelector('#price');
 
 priceInput.addEventListener('input', () => {
@@ -31,8 +31,8 @@ const getTimeOut = () => {
   timeOutSelect.value = timeInSelect.value;
 };
 
-adHousingType.addEventListener('change', () => {
-  switch (adHousingType.value) {
+getHousingType.addEventListener('change', () => {
+  switch (getHousingType.value) {
     case 'bungalow':
       priceInput.setAttribute('min', MIN_BUNGALOW_PRICE_VALUE);
       priceInput.setAttribute('placeholder', MIN_BUNGALOW_PRICE_VALUE);
@@ -54,7 +54,7 @@ adHousingType.addEventListener('change', () => {
       priceInput.setAttribute('placeholder', MIN_PALACE_PRICE_VALUE);
       break;
   }
-  adHousingType.setCustomValidity('');
+  getHousingType.setCustomValidity('');
 });
 
 
