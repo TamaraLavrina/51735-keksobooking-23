@@ -3,6 +3,7 @@ import  './createPopup.js';
 import {blockPageEements} from './map.js';
 import {unlockPageEements} from './map.js';
 import { renderCard} from './createPopup.js';
+import  './form.js';
 
 //const SIMILAR_ADV_COUNT = 10;
 //const similarAvertisement = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvert());
@@ -13,5 +14,4 @@ renderCard(createAdvert());
 
 blockPageEements();
 unlockPageEements();
-
 
