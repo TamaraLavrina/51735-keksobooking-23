@@ -4,6 +4,7 @@ const MIN_FLAT_PRICE_VALUE = 1000;
 const MIN_HOTEL_PRICE_VALUE = 3000;
 const MIN_HOUSE_PRICE_VALUE = 5000;
 const MIN_PALACE_PRICE_VALUE = 10000;
+
 const timeInSelect = document.querySelector('#timein');
 const timeOutSelect = document.querySelector('#timeout');
 const roomNumberSelect = document.querySelector('#room_number');
@@ -30,6 +31,10 @@ const getTimeIn = () => {
 
 const getTimeOut = () => {
   timeOutSelect.value = timeInSelect.value;
+};
+
+const initForm =() =>{
+  priceInput.setAttribute('min', MIN_FLAT_PRICE_VALUE );
 };
 
 getHousingType.addEventListener('change', () => {
@@ -74,9 +79,13 @@ const onRoomChanger = (evt) => {
 
   capacitySelect.reportValidity();
 };
+const validateForm = () => {
+  initForm();
+  capacitySelect.addEventListener('change', onRoomChanger);
+  roomNumberSelect.addEventListener('change', onRoomChanger);
+  addForm.addEventListener('submit', onRoomChanger);
+  timeInSelect.addEventListener('change', getTimeOut);
+  timeOutSelect.addEventListener('change', getTimeIn);
+};
 
-capacitySelect.addEventListener('change', onRoomChanger);
-roomNumberSelect.addEventListener('change', onRoomChanger);
-addForm.addEventListener('submit', onRoomChanger);
-timeInSelect.addEventListener('change', getTimeOut);
-timeOutSelect.addEventListener('change', getTimeIn);
+export {validateForm};
