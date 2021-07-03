@@ -20,9 +20,9 @@ const FEATURES = [
   'wifi',
   'dishwasher',
   'parking',
-  //'washer',
-  //'elevator',
-  // 'conditioner',
+  'washer',
+  'elevator',
+  'conditioner',
 ];
 
 const PHOTOS = [
@@ -37,24 +37,6 @@ const DESCRIPTIONS = [
   'можно всех и с детьми, и с кошкамии, и на девичник тоже',
 ];
 
-/*
-const createAvatar = () => {
-  const advAvatar = getRandomFloat(1, 10, 0);
-  const advAvatarString = String(advAvatar);
-  return {
-    avatar: `img/avatars/user${advAvatarString.padStart( 2 , '0')}.png`,
-  };
-};
-
-//const createLocation = () => {
-//  const location = {
-//    lat: getRandomFloat(35.65000, 35.70000, 5),
-//    lng: getRandomFloat(139.70000, 139.80000, 5),
-//  };
-//
-//  return  location;
-//};
-*/
 const createAdvert = () => {
   const advAvatar = getRandomFloat(1, 10, 0);
   const advAvatarString = String(advAvatar);
@@ -74,9 +56,9 @@ const createAdvert = () => {
   const guests = getRandomElement();
   const checkin = getRandomArrayElement(TIME);
   const checkout = getRandomArrayElement(TIME);
-  const features =FEATURES;
+  const features =  FEATURES.slice(0, getRandomFloat(1, FEATURES.length));
   const description = getRandomArrayElement(DESCRIPTIONS);
-  const photos = PHOTOS;
+  const photos = PHOTOS.slice(0, getRandomFloat(1, PHOTOS.length));
 
   return {
     author: avatar,
@@ -97,5 +79,4 @@ const createAdvert = () => {
   };
 
 };
-
 export {createAdvert};

@@ -1,16 +1,13 @@
 import{createAdvert} from './utils/createAdvertisement.js';
 import {blockPageEements} from './map.js';
 import {unlockPageEements} from './map.js';
-import {renderCard} from './createPopup.js';
+import {renderCard} from './renderCard.js';
 import  {validateForm} from'./form.js';
-
-//const SIMILAR_ADV_COUNT = 10;
-//const similarAvertisement = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvert());
-//similarAvertisement
-// пока в итоге массив то нам и не нужен, но в задании он был, оставлю в виде коммента
+//import{setSimplePinsOnMap}  from './map.js';
 
 renderCard(createAdvert());
 
 blockPageEements();
 unlockPageEements();
 validateForm();
+//setSimplePinsOnMap();

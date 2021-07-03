@@ -24,12 +24,12 @@ priceInput.addEventListener('input', () => {
 });
 
 
-const getTimeIn = () => {
+const setTimeIn = () => {
   timeInSelect.value = timeOutSelect.value;
 
 };
 
-const getTimeOut = () => {
+const setTimeOut = () => {
   timeOutSelect.value = timeInSelect.value;
 };
 
@@ -84,8 +84,8 @@ const validateForm = () => {
   capacitySelect.addEventListener('change', onRoomChanger);
   roomNumberSelect.addEventListener('change', onRoomChanger);
   addForm.addEventListener('submit', onRoomChanger);
-  timeInSelect.addEventListener('change', getTimeOut);
-  timeOutSelect.addEventListener('change', getTimeIn);
+  timeInSelect.addEventListener('change', setTimeOut);
+  timeOutSelect.addEventListener('change', setTimeIn);
 };
 
 export {validateForm};

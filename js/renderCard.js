@@ -11,8 +11,6 @@ const translateType = {
 const isValue = (value, item) => value || item.remove();
 
 const renderCard = (advert) => {
-  const map = document.querySelector('.map')
-    .querySelector('#map-canvas');
   const popup = document.querySelector('#card')
     .content
     .querySelector('.popup');
@@ -54,7 +52,7 @@ const renderCard = (advert) => {
   const avatar = newPopup.querySelector('.popup__avatar');
   avatar.src = advert.author.avatar;
 
-  map.appendChild(newPopup);
+  return newPopup;
 };
 
 export { renderCard };
