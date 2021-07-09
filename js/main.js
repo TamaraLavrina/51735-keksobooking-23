@@ -1,11 +1,12 @@
-import{createAdvert} from './utils/createAdvertisement.js';
+//import{createAdvert} from './utils/createAdvert.js';
 import {blockPageEements} from './map.js';
 import {unlockPageEements} from './map.js';
 import {renderCard} from './renderCard.js';
 import  {validateForm} from'./form.js';
+import  {getData} from'./fetchAPI.js';
 //import{setSimplePinsOnMap}  from './map.js';
 
-renderCard(createAdvert());
+renderCard(getData());
 
 blockPageEements();
 unlockPageEements();

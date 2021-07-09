@@ -1,5 +1,5 @@
-import{createAdvert} from './utils/createAdvertisement.js';
-createAdvert();
+//import{createAdvert} from './utils/createAdvert.js';
+//createAdvert();
 
 const translateType = {
   flat: 'Квартира',

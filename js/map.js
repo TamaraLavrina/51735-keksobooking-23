@@ -1,5 +1,5 @@
 import {renderCard} from './renderCard.js';
-import{createAdvert} from './utils/createAdvertisement.js';
+//import{createAdvert} from './utils/createAdvert.js';
 const addForm = document.querySelector('.ad-form');
 const parentsFields = addForm.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
@@ -23,16 +23,19 @@ const unlockPageEements = () => {
 export {blockPageEements};
 export{unlockPageEements};
 
+const DefaultCoordinates = {
+  lat: 35.68152,
+  lng: 139.75372,
+};
+
 const map = L.map('map-canvas')
   .on('load', () => {
     addForm.classList.remove('ad-form--disabled');
     parentsFields.forEach((element) => element.classList.remove('disabled'));
     mapFilters.classList.remove('map__filters--disabled');
+    addressInput.value =  `${DefaultCoordinates.lat}, ${DefaultCoordinates.lng}`;
   })
-  .setView({
-    lat: 35.67500,
-    lng: 139.75000,
-  }, 10);
+  .setView(DefaultCoordinates, 10);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -111,10 +114,18 @@ const createMarker = (advert) => {
     );
 };
 
+const markersForMap = (adverts) => {adverts.forEach((advert) => {
+  createMarker(advert);
+});
+};
+
+export {createMarker};
+export {markersForMap };
+
+/*
 const SIMILAR_ADV_COUNT = 10;
 const similarAdverts = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvert());
 similarAdverts.forEach((advert) => {
   createMarker(advert);
 });
-
-
+*/
