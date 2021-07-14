@@ -1,3 +1,6 @@
+//import {errorCard} from './utils.js';
+//import  {sendData} from'./fetchAPI.js';
+
 const MAX_PRICE_VALUE = 1000000;
 const MIN_BUNGALOW_PRICE_VALUE = 0;
 const MIN_FLAT_PRICE_VALUE = 1000;
