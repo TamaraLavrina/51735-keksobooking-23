@@ -20,8 +20,6 @@ const unlockPageEements = () => {
 
 };
 
-export {blockPageEements};
-export{unlockPageEements};
 
 const DefaultCoordinates = {
   lat: 35.68152,
@@ -121,7 +119,8 @@ const markersForMap = (adverts) => {adverts.forEach((advert) => {
 
 export {createMarker};
 export {markersForMap };
-
+export {blockPageEements};
+export{unlockPageEements};
 /*
 const SIMILAR_ADV_COUNT = 10;
 const similarAdverts = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvert());

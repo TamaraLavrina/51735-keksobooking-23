@@ -84,8 +84,37 @@ const validateForm = () => {
   capacitySelect.addEventListener('change', onRoomChanger);
   roomNumberSelect.addEventListener('change', onRoomChanger);
   addForm.addEventListener('submit', onRoomChanger);
+  onRoomChanger();
   timeInSelect.addEventListener('change', setTimeOut);
   timeOutSelect.addEventListener('change', setTimeIn);
 };
 
+
+/*
+
+const setUserFormSubmit = (sendData, onSuccess) => {
+  addForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess,
+      () => errorCard(),
+      new FormData(evt.target),
+    );
+
+    addForm.reset();
+  });
+};
+*/
+// Filters
+/*
+const mapFilters = document.querySelector('.map__filters');
+const mapFilterType = mapFilters.querySelector('#housing-type');
+const mapFilterPrice = mapFilters.querySelector('#housing-price');
+const mapFilterRooms = mapFilters.querySelector('#housing-rooms');
+const mapFilterGuests = mapFilters.querySelector('#housing-guests');
+const mapFilterFeatures = mapFilters.querySelector('#housing-features');
+*/
+
+//export {setUserFormSubmit};
 export {validateForm};

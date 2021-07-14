@@ -1,49 +1,74 @@
-//import {createMarker} from './map.js';
-import {showAlert} from './utils.js';
-import {markersForMap} from './map.js';
+import { successCard, errorCard } from './utils.js';
+import { showAlert } from './utils.js';
+import { markersForMap } from './map.js';
+import { unlockPageEements } from './map.js';
+import { validateForm } from './form.js';
 const SIMILAR_ADV_COUNT = 10;
+const SERVER = 'https://23.javascript.pages.academy/keksobooking';
+const addForm = document.querySelector('.ad-form');
+//const submit = addForm.querySelector('.ad-form__submit');
 
 const getData = () => {
-  fetch ('https://23.javascript.pages.academy/keksobooking/data', {
+  fetch(`${SERVER}/data`, {
     method: 'GET',
     credentials: 'same-origin',
   },
   )
     .then((response) => {
       if (response.ok) {
+        unlockPageEements();
         return response;
       }
       throw new Error(response.status);
     })
     .then((response) => response.json())
     .then((offersFromSerever) => {
-      console.log(offersFromSerever);
-      markersForMap (offersFromSerever.slice(0, SIMILAR_ADV_COUNT ));
+      markersForMap(offersFromSerever.slice(0, SIMILAR_ADV_COUNT));
     })
-    .catch(() =>{
+    .catch(() => {
       showAlert('Не удалось загрузить данные c сервера. Попробуйте еще раз.');
     });
 };
 
-const sendData = (form) => {
-  fetch('https://23.javascript.pages.academy/keksobooking', {
-    method: 'POST',
-    body: new FormData(form),
-  })
+const sendData = (onSuccess, onFail, body) => {
+  fetch(
+    SERVER,
+    {
+      method: 'POST',
+      credentials: 'same-origin',
+      body,
+    },
+  )
     .then((response) => {
       if (response.ok) {
-        return response;
+        onSuccess();
+      } else {
+        onFail();
       }
-      throw new Error(response.status);
+    })
+    .catch (() => {
+      onFail();
     });
 };
 
-export {getData, sendData};
+const setUserFormSubmit = (onSuccess) => {
+  addForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    if (validateForm()) {
+      const formData = new FormData(evt.target);
 
-/*
+      sendData(
+        onSuccess,
+        formData,
+      );
+      successCard();
+    } else {
+      errorCard();
+    }
+  });
+};
 
-const similarAdverts = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvert());
-similarAdverts.forEach((advert) => {
-  createMarker(advert);
-});
-*/
+
+export { getData, setUserFormSubmit };
+
+
