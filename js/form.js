@@ -84,7 +84,6 @@ const validateForm = () => {
   capacitySelect.addEventListener('change', onRoomChanger);
   roomNumberSelect.addEventListener('change', onRoomChanger);
   addForm.addEventListener('submit', onRoomChanger);
-  onRoomChanger();
   timeInSelect.addEventListener('change', setTimeOut);
   timeOutSelect.addEventListener('change', setTimeIn);
 };

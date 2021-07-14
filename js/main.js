@@ -4,7 +4,7 @@ import {renderCard} from './renderCard.js';
 import  {validateForm} from'./form.js';
 import  {getData} from'./fetchAPI.js';
 import {setUserFormSubmit}  from'./fetchAPI.js';
-import './fetchAPI.js';
+
 
 const adverts = getData();
 adverts.forEach((advert) => {renderCard(advert);
