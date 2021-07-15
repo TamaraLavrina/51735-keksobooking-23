@@ -19,62 +19,63 @@ const showAlert = (message) => {
   }, 5000);
 };
 
+///
+//import { returnToInitState } from './form.js';
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
-const errorButton = document.querySelector('.error__button');
-const successModal = document.createElement('div');
-const errorModal = document.createElement('div');
+const isEnterEvent = (evt) => evt.key === 'Enter';
+const successModalTemplate = document.querySelector('#success').
+  content.querySelector('.success');
+const errorModalTemplate = document.querySelector('#error').content.querySelector('.error');
 
-successModal.classList.add('hidden');
-errorModal.classList.add('hidden');
+
+let successModal = null;
+let errorModal = null;
+
+const closeSuccessModal = () => {
+  if (successModal !== null) {
+    successModal.remove();
+    successModal.removeEventListener('click', closeSuccessModal);
+    successModal = null;
+  }
+};
+
+const closeErrorModal = () => {
+  if (errorModal !== null) {
+    errorModal.remove();
+    errorModal.removeEventListener('click', closeErrorModal);
+    errorModal = null;
+  }
+};
+
+const onSuccessModalKeydown = (evt) => {
+  if (isEscEvent(evt) || isEnterEvent(evt)) {
+    evt.preventDefault();
+    closeSuccessModal();
+    document.removeEventListener('keydown', onSuccessModalKeydown);
+  }
+};
+
+const onErrorModalKeydown = (evt) => {
+  if (isEscEvent(evt) || isEnterEvent(evt)) {
+    evt.preventDefault();
+    closeErrorModal();
+    document.removeEventListener('keydown', onErrorModalKeydown);
+  }
+};
+
 const successCard = () => {
-  const successTemplate = document.querySelector('#success');
-  const successTemplateElement = successTemplate.content.querySelector('.success');
-  const successMessage = successTemplateElement.cloneNode(true);
-
-  successModal.appendChild(successMessage);
-  document.body.append(successModal);
-  openSuccessCard();
+  successModal = successModalTemplate.cloneNode(true);
+  document.body.insertAdjacentElement('afterbegin', successModal);
+  successModal.addEventListener('click', closeSuccessModal);
+  document.addEventListener('keydown', onSuccessModalKeydown);
 };
 
 const errorCard = () => {
-  const errorTemplate = document.querySelector('#error');
-  const errorTemplateElement = errorTemplate.content.querySelector('.error');
-  const errorMessage = errorTemplateElement.cloneNode(true);
-  errorModal.appendChild(errorMessage);
-  document.body.append(errorModal);
-  openErrorCard();
+  errorModal = errorModalTemplate.cloneNode(true);
+  document.body.insertAdjacentElement('afterbegin', errorModal);
+  errorModal.addEventListener('click', closeErrorModal);
+  document.addEventListener('keydown', onErrorModalKeydown);
 };
 
-const onCloseSuccessCard = (evt) => {
-  if (!successModal.contains(evt.target) || isEscEvent) {
-    evt.preventDefault();
-    successModal.classList.add('hidden');
-    document.removeEventListener('keydown', onCloseSuccessCard);
-  }
-};
+export {showAlert, successCard, errorCard};
 
-const openSuccessCard = () => {
-  successModal.classList.remove('hidden');
-  document.addEventListener('keydown', onCloseSuccessCard);
-};
-
-const closeErrorCard = () => {
-  errorModal.classList.add('hidden');
-  document.removeEventListener('keydown', onCloseErrorCard);
-};
-
-
-const onCloseErrorCard = (evt) => {
-  if (!errorModal.contains(evt.target) || isEscEvent || errorButton(evt.target)) {
-    evt.preventDefault();
-    closeErrorCard();
-  }
-};
-const openErrorCard = () => {
-  errorModal.classList.remove('hidden');
-  document.addEventListener('keydown', onCloseErrorCard);
-};
-
-
-export {successCard, errorCard};
-export {showAlert};

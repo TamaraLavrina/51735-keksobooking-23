@@ -1,5 +1,8 @@
-//import {errorCard} from './utils.js';
-//import  {sendData} from'./fetchAPI.js';
+import {errorCard} from './utils.js';
+import  {sendData} from'./fetchAPI.js';
+import  {getAddress} from'./map.js';
+import  {resetMap} from'./map.js';
+
 
 const MAX_PRICE_VALUE = 1000000;
 const MIN_BUNGALOW_PRICE_VALUE = 0;
@@ -15,6 +18,7 @@ const capacitySelect = document.querySelector('#capacity');
 const getHousingType = document.querySelector('#type');
 const priceInput = document.querySelector('#price');
 const addForm = document.querySelector('.ad-form');
+const resetButton = document.querySelector('.ad-form__reset');
 
 priceInput.addEventListener('input', () => {
   if (priceInput.value > MAX_PRICE_VALUE) {
@@ -92,22 +96,29 @@ const validateForm = () => {
 };
 
 
-/*
+const returnToInitState = (evt) => {
+  evt.preventDefault();
+  initForm();
+  getAddress();
+  resetMap();
+  //очистить поля формы
+};
 
-const setUserFormSubmit = (sendData, onSuccess) => {
+const setUserFormSubmit = (onSuccess) => {
   addForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => onSuccess,
+      () => onSuccess(), //вот сюда хочу добавить функцию returntoInitState, но туплю и не пониманию как мне передать ее туда, потому что вместо onSuccess - у меня встает функция показа удачной карточки.
       () => errorCard(),
       new FormData(evt.target),
     );
-
-    addForm.reset();
   });
 };
-*/
+
+resetButton.addEventListener('click', returnToInitState);
+
+
 // Filters
 /*
 const mapFilters = document.querySelector('.map__filters');
@@ -118,5 +129,7 @@ const mapFilterGuests = mapFilters.querySelector('#housing-guests');
 const mapFilterFeatures = mapFilters.querySelector('#housing-features');
 */
 
-//export {setUserFormSubmit};
+export {setUserFormSubmit};
 export {validateForm};
+export {returnToInitState};
+

@@ -73,28 +73,7 @@ const renderCard = (advert) => {
   const avatar = newPopup.querySelector('.popup__avatar');
   avatar.src = advert.author.avatar;
 
-  /*
-  //получается, что этот кусок кода не работает. Не понятно...
-    const checkData = (item) => {
-      if (advert.offer.item === undefined) {
-        //item = [];
-        item.remove();
-      }
-      console.log(advert.offer.item);
-    };
-
-    checkData(avatar);
-    checkData(title);
-    checkData(address);
-    checkData(price);
-    checkData(type);
-    checkData(features);
-    checkData(description);
-    checkData(photoElements);
-    console.log(description);
-    */
   return newPopup;
-
 
 };
 
