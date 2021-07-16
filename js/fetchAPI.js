@@ -2,6 +2,7 @@
 import { showAlert } from './utils.js';
 //import { markersForMap } from './map.js';
 import { unlockPageEements } from './map.js';
+import { resetMapForm } from './form.js';
 
 //import { validateForm } from './form.js';
 
@@ -39,6 +40,7 @@ const sendData = (onSuccess, onFail, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
+        resetMapForm();
       } else {
         onFail();
       }

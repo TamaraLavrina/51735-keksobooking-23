@@ -1,9 +1,10 @@
 import {blockPageEements, markersForMap} from './map.js';
 import {unlockPageEements} from './map.js';
-import {returnToInitState, validateForm} from'./form.js';
+import {validateForm} from'./form.js';
 import {getData} from'./fetchAPI.js';
 import {setUserFormSubmit}  from './form.js';
 import { errorCard, showAlert, successCard } from './utils.js';
+//import './avatar.js';
 
 
 const SIMILAR_ADV_COUNT = 10;
@@ -17,4 +18,3 @@ getData((offersFromSerever) => {
 }, () => showAlert('не удалось загрузить данные с сервера'));
 
 setUserFormSubmit(successCard, errorCard);
-returnToInitState();

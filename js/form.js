@@ -1,7 +1,7 @@
-import {errorCard} from './utils.js';
-import  {sendData} from'./fetchAPI.js';
-import  {getAddress} from'./map.js';
-import  {resetMap} from'./map.js';
+import { errorCard } from './utils.js';
+import { sendData } from './fetchAPI.js';
+import { getAddress } from './map.js';
+import { resetMap } from './map.js';
 
 
 const MAX_PRICE_VALUE = 1000000;
@@ -40,8 +40,8 @@ const setTimeOut = () => {
   timeOutSelect.value = timeInSelect.value;
 };
 
-const initForm =() =>{
-  priceInput.setAttribute('min', MIN_FLAT_PRICE_VALUE );
+const initForm = () => {
+  priceInput.setAttribute('min', MIN_FLAT_PRICE_VALUE);
 };
 
 getHousingType.addEventListener('change', () => {
@@ -71,65 +71,116 @@ getHousingType.addEventListener('change', () => {
 });
 
 
-const onRoomChanger = (evt) => {
-  if (roomNumberSelect.value === 100 && capacitySelect.value === 0) {
+// const onRoomChanger = (evt) => {
+//   if (roomNumberSelect.value === 100 && capacitySelect.value === 0) {
+//     capacitySelect.setCustomValidity('');
+//   } else if (roomNumberSelect.value === 100 && capacitySelect.value !== 0) {
+//     capacitySelect.setCustomValidity('Помещение не предназначено для гостей');
+//     evt.preventDefault();
+//   }  else if (capacitySelect.value > roomNumberSelect.value) {
+//     capacitySelect.setCustomValidity('Количество гостей не может превышать количество комнат');
+//     evt.preventDefault();
+//   } else {
+//     capacitySelect.setCustomValidity('');
+
+//   }
+//   capacitySelect.reportValidity();
+
+// };
+
+const showErrors = (test) => {
+  capacitySelect.setCustomValidity(test);
+};
+
+const onRoomChanger = () => {
+  const error = {
+    flag: true,
+    message: '',
+  };
+  if (Number(roomNumberSelect.value) === 100 && Number(capacitySelect.value) === 0) {
     capacitySelect.setCustomValidity('');
-  } else if (roomNumberSelect.value === 100 && capacitySelect.value !== 0) {
-    capacitySelect.setCustomValidity('Помещение не предназначено для гостей');
-    evt.preventDefault();
-  }  else if (capacitySelect.value > roomNumberSelect.value) {
-    capacitySelect.setCustomValidity('Количество гостей не может превышать количество комнат');
-    evt.preventDefault();
-  } else {
-    capacitySelect.setCustomValidity('');
+  } else if (Number(roomNumberSelect.value) === 100 && Number(capacitySelect.value) !== 0) {
+    error.flag = false;
+    error.message = 'Помещение не предназначено для гостей';
+    showErrors(error.message);
+    //evt.preventDefault();
+  } else if (Number(capacitySelect.value) !== 0) {
+    if (Number(capacitySelect.value) > Number(roomNumberSelect.value)) {
+      error.flag = false;
+      error.message = 'Количество гостей не может превышать количество комнат';
+      showErrors(error.message);
+      //evt.preventDefault();
+    }else {capacitySelect.setCustomValidity('');}
+  }
+  else if (Number(capacitySelect.value) === 0 && Number(roomNumberSelect.value) !== 100) {
+    error.flag = false;
+    error.message = 'не для гостей только по 100 комнат';
+    showErrors(error.message);
   }
 
+  else {
+    capacitySelect.setCustomValidity('');
+  }
   capacitySelect.reportValidity();
+  return error;
 };
+
+
 const validateForm = () => {
   initForm();
   capacitySelect.addEventListener('change', onRoomChanger);
   roomNumberSelect.addEventListener('change', onRoomChanger);
-  addForm.addEventListener('submit', onRoomChanger);
+  //addForm.addEventListener('submit', onRoomChanger);
   timeInSelect.addEventListener('change', setTimeOut);
   timeOutSelect.addEventListener('change', setTimeIn);
 };
 
+const resetMapForm = () => {
+  addForm.reset();
+  resetMap();
+  getAddress();
+  initForm();
+};
 
 const returnToInitState = (evt) => {
   evt.preventDefault();
   initForm();
-  getAddress();
-  resetMap();
-  //очистить поля формы
+  resetMapForm();
 };
+
+// const setUserFormSubmit = (onSuccess) => {
+//   addForm.addEventListener('submit', (evt) => {
+//     evt.preventDefault();
+
+//     sendData(
+//       () => onSuccess(),
+//       () => errorCard(),
+//       new FormData(evt.target),
+//     );
+//     resetMapForm();
+//   });
+// };
 
 const setUserFormSubmit = (onSuccess) => {
   addForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    const testTest = onRoomChanger();
+    if (testTest.flag) {
+      sendData(
+        () => { onSuccess(); resetMapForm(); },
+        () => errorCard(),
+        new FormData(evt.target),
+      );
+    } else {
+      showErrors(testTest.message);
+    }
 
-    sendData(
-      () => onSuccess(), //вот сюда хочу добавить функцию returntoInitState, но туплю и не пониманию как мне передать ее туда, потому что вместо onSuccess - у меня встает функция показа удачной карточки.
-      () => errorCard(),
-      new FormData(evt.target),
-    );
   });
 };
 
 resetButton.addEventListener('click', returnToInitState);
 
-
-// Filters
-/*
-const mapFilters = document.querySelector('.map__filters');
-const mapFilterType = mapFilters.querySelector('#housing-type');
-const mapFilterPrice = mapFilters.querySelector('#housing-price');
-const mapFilterRooms = mapFilters.querySelector('#housing-rooms');
-const mapFilterGuests = mapFilters.querySelector('#housing-guests');
-const mapFilterFeatures = mapFilters.querySelector('#housing-features');
-*/
-
-export {setUserFormSubmit};
-export {validateForm};
-export {returnToInitState};
+export { setUserFormSubmit };
+export { validateForm };
+export { returnToInitState, resetMapForm };
 
