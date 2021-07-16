@@ -1,9 +1,11 @@
 import { renderCard } from './renderCard.js';
 //import{createAdvert} from './utils/createAdvert.js';
+
+
 const addForm = document.querySelector('.ad-form');
 const parentsFields = addForm.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
-const resetButton = document.querySelector('.ad-form__reset');
+//const resetButton = document.querySelector('.ad-form__reset');
 const addressInput = document.querySelector('#address');
 
 const blockPageEements = () => {
@@ -53,10 +55,7 @@ const mainPinIcon = L.icon({
 
 
 const mainPinMarker = L.marker(
-  {
-    lat: DefaultCoordinates.lat,
-    lng: DefaultCoordinates.lng,
-  },
+  (DefaultCoordinates),
   {
     draggable: true,
     icon: mainPinIcon,
@@ -70,20 +69,11 @@ mainPinMarker.on('move', (evt) => {
 });
 
 const resetMap = () => {
-  mainPinMarker.setLatLng({
-    lat: DefaultCoordinates.lat,
-    lng: DefaultCoordinates.lng,
-  });
+  mainPinMarker.setLatLng(DefaultCoordinates);
 
-  map.setView({
-    lat: DefaultCoordinates.lat,
-    lng: DefaultCoordinates.lng,
-  }, 13);
+  map.setView(DefaultCoordinates, 13);
 
 };
-
-resetButton.addEventListener('click', resetMap);
-
 
 const markerGroup = L.layerGroup().addTo(map);
 

@@ -1,5 +1,5 @@
 //import { successCard, errorCard } from './utils.js';
-import { showAlert } from './utils.js';
+import { showAlert } from './messages.js';
 //import { markersForMap } from './map.js';
 import { unlockPageEements } from './map.js';
 import { resetMapForm } from './form.js';

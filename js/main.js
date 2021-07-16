@@ -3,7 +3,7 @@ import {unlockPageEements} from './map.js';
 import {validateForm} from'./form.js';
 import {getData} from'./fetchAPI.js';
 import {setUserFormSubmit}  from './form.js';
-import { errorCard, showAlert, successCard } from './utils.js';
+import { errorCard, showAlert, successCard } from './messages.js';
 //import './avatar.js';
 
 

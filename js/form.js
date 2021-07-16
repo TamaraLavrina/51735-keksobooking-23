@@ -1,15 +1,16 @@
-import { errorCard } from './utils.js';
+import { errorCard } from './messages.js';
 import { sendData } from './fetchAPI.js';
 import { getAddress } from './map.js';
 import { resetMap } from './map.js';
 
-
-const MAX_PRICE_VALUE = 1000000;
-const MIN_BUNGALOW_PRICE_VALUE = 0;
-const MIN_FLAT_PRICE_VALUE = 1000;
-const MIN_HOTEL_PRICE_VALUE = 3000;
-const MIN_HOUSE_PRICE_VALUE = 5000;
-const MIN_PALACE_PRICE_VALUE = 10000;
+const setPrice = {
+  maxValue: '1000000',
+  bungalow: '0',
+  flat: '1000',
+  hotel: '3000',
+  house: '5000',
+  palace: '10000',
+};
 
 const timeInSelect = document.querySelector('#timein');
 const timeOutSelect = document.querySelector('#timeout');
@@ -21,15 +22,14 @@ const addForm = document.querySelector('.ad-form');
 const resetButton = document.querySelector('.ad-form__reset');
 
 priceInput.addEventListener('input', () => {
-  if (priceInput.value > MAX_PRICE_VALUE) {
-    priceInput.setCustomValidity(`Не жадничайте. Маскимальная цена - ${MAX_PRICE_VALUE}`);
+  if (priceInput.value > setPrice.maxValue) {
+    priceInput.setCustomValidity(`Не жадничайте. Маскимальная цена - ${setPrice.maxValue}`);
   }
   else {
     priceInput.setCustomValidity('');
   }
   priceInput.reportValidity();
 });
-
 
 const setTimeIn = () => {
   timeInSelect.value = timeOutSelect.value;
@@ -41,30 +41,30 @@ const setTimeOut = () => {
 };
 
 const initForm = () => {
-  priceInput.setAttribute('min', MIN_FLAT_PRICE_VALUE);
+  priceInput.setAttribute('min', setPrice.flat);
 };
 
 getHousingType.addEventListener('change', () => {
   switch (getHousingType.value) {
     case 'bungalow':
-      priceInput.setAttribute('min', MIN_BUNGALOW_PRICE_VALUE);
-      priceInput.setAttribute('placeholder', MIN_BUNGALOW_PRICE_VALUE);
+      priceInput.setAttribute('min', setPrice[getHousingType.value]);
+      priceInput.setAttribute('placeholder', setPrice[getHousingType.value]);
       break;
     case 'flat':
-      priceInput.setAttribute('min', MIN_FLAT_PRICE_VALUE);
-      priceInput.setAttribute('placeholder', MIN_FLAT_PRICE_VALUE);
+      priceInput.setAttribute('min', setPrice[getHousingType.value]);
+      priceInput.setAttribute('placeholder', setPrice[getHousingType.value]);
       break;
     case 'hotel':
-      priceInput.setAttribute('min', MIN_HOTEL_PRICE_VALUE);
-      priceInput.setAttribute('placeholder', MIN_HOTEL_PRICE_VALUE);
+      priceInput.setAttribute('min', setPrice[getHousingType.value]);
+      priceInput.setAttribute('placeholder', setPrice[getHousingType.value]);
       break;
     case 'house':
-      priceInput.setAttribute('min', MIN_HOUSE_PRICE_VALUE);
-      priceInput.setAttribute('placeholder', MIN_HOUSE_PRICE_VALUE);
+      priceInput.setAttribute('min', setPrice[getHousingType.value]);
+      priceInput.setAttribute('placeholder', setPrice[getHousingType.value]);
       break;
     case 'palace':
-      priceInput.setAttribute('min', MIN_PALACE_PRICE_VALUE);
-      priceInput.setAttribute('placeholder', MIN_PALACE_PRICE_VALUE);
+      priceInput.setAttribute('min', setPrice[getHousingType.value]);
+      priceInput.setAttribute('placeholder', setPrice[getHousingType.value]);
       break;
   }
   getHousingType.setCustomValidity('');

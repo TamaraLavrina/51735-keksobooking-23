@@ -1,6 +1,3 @@
-//import{createAdvert} from './utils/createAdvert.js';
-//createAdvert();
-
 const translateType = {
   flat: 'Квартира',
   house: 'Дом',
@@ -8,14 +5,12 @@ const translateType = {
   hotel: 'Отель',
   palace: 'Дворец',
 };
-//const isValue = (value, item) => value || item.remove();
 
 const renderCard = (advert) => {
   const popup = document.querySelector('#card')
     .content
     .querySelector('.popup');
-  const newPopup = popup.cloneNode(true); //клонируем объявление
-  //заполнение объявления данными:
+  const newPopup = popup.cloneNode(true);
   const title = newPopup.querySelector('.popup__title');
   title.textContent = advert.offer.title;
   if (advert.offer.title === undefined) { title.remove(); }
