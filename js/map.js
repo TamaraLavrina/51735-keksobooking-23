@@ -1,38 +1,44 @@
-import {renderCard} from './renderCard.js';
-import{createAdvert} from './utils/createAdvertisement.js';
+import { renderCard } from './renderCard.js';
+//import{createAdvert} from './utils/createAdvert.js';
+
+
 const addForm = document.querySelector('.ad-form');
 const parentsFields = addForm.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
-const resetButton = document.querySelector('.ad-form__reset');
-const submitButton = document.querySelector('.ad-form__submit');
+//const resetButton = document.querySelector('.ad-form__reset');
 const addressInput = document.querySelector('#address');
 
 const blockPageEements = () => {
-  addForm.classList.add ('ad-form--disabled');
+  addForm.classList.add('ad-form--disabled');
   parentsFields.forEach((element) => element.classList.add('disabled'));
+};
+
+const blockMap = () => {
   mapFilters.classList.add('map__filters--disabled');
 };
 
 const unlockPageEements = () => {
   addForm.classList.remove('ad-form--disabled');
   parentsFields.forEach((element) => element.classList.remove('disabled'));
-  mapFilters.classList.remove('map__filters--disabled');
-
 };
 
-export {blockPageEements};
-export{unlockPageEements};
+const unlockMap = () => {
+  mapFilters.classList.remove('map__filters--disabled');
+};
+
+const DefaultCoordinates = {
+  lat: 35.68152,
+  lng: 139.75372,
+};
+const getAddress = () => addressInput.value = `${DefaultCoordinates.lat}, ${DefaultCoordinates.lng}`;
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    addForm.classList.remove('ad-form--disabled');
-    parentsFields.forEach((element) => element.classList.remove('disabled'));
-    mapFilters.classList.remove('map__filters--disabled');
+    unlockPageEements();
+    unlockMap();
+    getAddress();
   })
-  .setView({
-    lat: 35.67500,
-    lng: 139.75000,
-  }, 10);
+  .setView(DefaultCoordinates, 13);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -49,10 +55,7 @@ const mainPinIcon = L.icon({
 
 
 const mainPinMarker = L.marker(
-  {
-    lat: 35.67500,
-    lng: 139.75000,
-  },
+  (DefaultCoordinates),
   {
     draggable: true,
     icon: mainPinIcon,
@@ -66,19 +69,11 @@ mainPinMarker.on('move', (evt) => {
 });
 
 const resetMap = () => {
-  mainPinMarker.setLatLng({
-    lat: 35.67500,
-    lng: 139.75000,
-  });
+  mainPinMarker.setLatLng(DefaultCoordinates);
 
-  map.setView({
-    lat: 35.67500,
-    lng: 139.75000,
-  }, 16);
+  map.setView(DefaultCoordinates, 13);
+
 };
-
-resetButton.addEventListener('click', resetMap);
-submitButton.addEventListener('click', resetMap);
 
 const markerGroup = L.layerGroup().addTo(map);
 
@@ -111,10 +106,14 @@ const createMarker = (advert) => {
     );
 };
 
-const SIMILAR_ADV_COUNT = 10;
-const similarAdverts = new Array(SIMILAR_ADV_COUNT).fill(null).map(() => createAdvert());
-similarAdverts.forEach((advert) => {
-  createMarker(advert);
-});
+const markersForMap = (adverts) => {
+  adverts.forEach((advert) => {
+    createMarker(advert);
+  });
+};
 
-
+export { createMarker, getAddress};
+export { markersForMap };
+export { resetMap };
+export { blockPageEements, blockMap };
+export { unlockPageEements, unlockMap };
