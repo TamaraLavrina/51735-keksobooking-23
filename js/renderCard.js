@@ -24,8 +24,7 @@ const renderCard = (advert) => {
   type.textContent = translateType[advert.offer.type];
   if (advert.offer.type === undefined) { type.remove(); }
   const capacity = newPopup.querySelector('.popup__text--capacity');
-  capacity.textContent = `${advert.offer.rooms} ${'комнаты для'} ${advert.offer.guests} ${'гостей'}`;
-  if (advert.offer.capacity === undefined) { capacity.remove(); }
+  capacity.textContent = `${advert.offer.rooms} ${'комнат для'} ${advert.offer.guests} ${'гостей'}`;
   const time = newPopup.querySelector('.popup__text--time');
   time.textContent = `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`;
   if (advert.offer.time === undefined) { time.remove(); }
@@ -33,7 +32,6 @@ const renderCard = (advert) => {
   description.textContent = advert.offer.description;
   if (advert.offer.description === undefined) { description.remove(); }
 
-  //список удобств
 
   const featureListElement = newPopup.querySelector('.popup__features');
   featureListElement.innerHTML = '';
@@ -47,8 +45,6 @@ const renderCard = (advert) => {
   });
   featureListElement.appendChild(fragment);
   if (featureListElement.children.length === 0) { featureListElement.remove(); }
-
-  //массив с фото
 
   const photoElements = newPopup.querySelector('.popup__photos');
 

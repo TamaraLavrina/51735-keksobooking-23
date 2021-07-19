@@ -8,5 +8,4 @@ const debounce = (callback, timeoutDelay=DELAY) => {
   };
 };
 
-
 export {debounce};

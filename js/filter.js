@@ -44,6 +44,7 @@ const filterAdvert = () => {
   markersForMap(filteredAdvs);
 };
 
-filterForm.addEventListener('change', debounce(filterAdvert));
+const setFilterFormListener = () => filterForm.addEventListener('change', debounce(filterAdvert));
 
-export {filterAdvert};
+
+export {setFilterFormListener};

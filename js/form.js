@@ -23,7 +23,7 @@ const resetButton = document.querySelector('.ad-form__reset');
 
 
 priceInput.addEventListener('input', () => {
-  if (priceInput.value > setPrice.maxValue) {
+  if (Number(priceInput.value) > setPrice.maxValue) {
     priceInput.setCustomValidity(`Не жадничайте. Маскимальная цена - ${setPrice.maxValue}`);
   }
   else {
@@ -132,15 +132,15 @@ const returnToInitState = (evt) => {
 const setUserFormSubmit = (onSuccess) => {
   addForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const testTest = onRoomChanger();
-    if (testTest.flag) {
+    const validationResult = onRoomChanger();
+    if (validationResult.flag) {
       sendData(
         () => { onSuccess(); resetMapForm(); },
         () => errorCard(),
         new FormData(evt.target),
       );
     } else {
-      showErrors(testTest.message);
+      showErrors(validationResult.message);
     }
 
   });
@@ -151,4 +151,3 @@ resetButton.addEventListener('click', returnToInitState);
 export { setUserFormSubmit };
 export { validateForm };
 export { returnToInitState, resetMapForm };
-
