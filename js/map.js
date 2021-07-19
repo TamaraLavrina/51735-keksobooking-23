@@ -1,11 +1,9 @@
 import { renderCard } from './renderCard.js';
-//import{createAdvert} from './utils/createAdvert.js';
-
+const SIMILAR_ADV_COUNT = 10;
 
 const addForm = document.querySelector('.ad-form');
 const parentsFields = addForm.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
-//const resetButton = document.querySelector('.ad-form__reset');
 const addressInput = document.querySelector('#address');
 
 const blockPageEements = () => {
@@ -13,7 +11,7 @@ const blockPageEements = () => {
   parentsFields.forEach((element) => element.classList.add('disabled'));
 };
 
-const blockMap = () => {
+const blockMapFilters = () => {
   mapFilters.classList.add('map__filters--disabled');
 };
 
@@ -22,7 +20,7 @@ const unlockPageEements = () => {
   parentsFields.forEach((element) => element.classList.remove('disabled'));
 };
 
-const unlockMap = () => {
+const unlockMapFilters = () => {
   mapFilters.classList.remove('map__filters--disabled');
 };
 
@@ -35,7 +33,7 @@ const getAddress = () => addressInput.value = `${DefaultCoordinates.lat}, ${Defa
 const map = L.map('map-canvas')
   .on('load', () => {
     unlockPageEements();
-    unlockMap();
+    unlockMapFilters();
     getAddress();
   })
   .setView(DefaultCoordinates, 13);
@@ -63,20 +61,16 @@ const mainPinMarker = L.marker(
 );
 
 mainPinMarker.addTo(map);
-
 mainPinMarker.on('move', (evt) => {
   addressInput.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 const resetMap = () => {
   mainPinMarker.setLatLng(DefaultCoordinates);
-
   map.setView(DefaultCoordinates, 13);
-
 };
 
 const markerGroup = L.layerGroup().addTo(map);
-
 const createMarker = (advert) => {
   const { location } = advert;
 
@@ -107,13 +101,14 @@ const createMarker = (advert) => {
 };
 
 const markersForMap = (adverts) => {
-  adverts.forEach((advert) => {
+  markerGroup.clearLayers();
+  adverts.slice(0, SIMILAR_ADV_COUNT).forEach((advert) => {
     createMarker(advert);
   });
 };
 
 export { createMarker, getAddress};
 export { markersForMap };
-export { resetMap };
-export { blockPageEements, blockMap };
-export { unlockPageEements, unlockMap };
+export { resetMap, mapFilters};
+export { blockPageEements, blockMapFilters };
+export { unlockPageEements, unlockMapFilters };

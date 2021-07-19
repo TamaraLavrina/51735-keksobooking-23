@@ -1,20 +1,22 @@
-import {blockPageEements, markersForMap} from './map.js';
+import {blockMapFilters, blockPageEements, markersForMap, unlockMapFilters} from './map.js';
 import {unlockPageEements} from './map.js';
 import {validateForm} from'./form.js';
 import {getData} from'./fetchAPI.js';
 import {setUserFormSubmit}  from './form.js';
 import { errorCard, showAlert, successCard } from './messages.js';
-//import './avatar.js';
+import './filter.js';
 
-
-const SIMILAR_ADV_COUNT = 10;
+//
 
 blockPageEements();
+blockMapFilters();
 
 getData((offersFromSerever) => {
   unlockPageEements();
+  unlockMapFilters();
   validateForm();
-  markersForMap(offersFromSerever.slice(0, SIMILAR_ADV_COUNT));
+  markersForMap(offersFromSerever);
+  setUserFormSubmit(successCard, errorCard);
 }, () => showAlert('не удалось загрузить данные с сервера'));
 
-setUserFormSubmit(successCard, errorCard);
+
