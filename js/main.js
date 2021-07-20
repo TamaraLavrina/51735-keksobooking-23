@@ -1,20 +1,17 @@
-import {blockPageEements, markersForMap} from './map.js';
-import {unlockPageEements} from './map.js';
-import {validateForm} from'./form.js';
+import {blockMapFilters, blockPageEements, markersForMap, unlockMapFilters, unlockPageEements} from './map.js';
+import {validateForm, setUserFormSubmit} from'./form.js';
 import {getData} from'./fetchAPI.js';
-import {setUserFormSubmit}  from './form.js';
 import { errorCard, showAlert, successCard } from './messages.js';
-//import './avatar.js';
-
-
-const SIMILAR_ADV_COUNT = 10;
+import {setFilterFormListener} from './filter.js';
 
 blockPageEements();
+blockMapFilters();
 
 getData((offersFromSerever) => {
   unlockPageEements();
+  setFilterFormListener(offersFromSerever);
   validateForm();
-  markersForMap(offersFromSerever.slice(0, SIMILAR_ADV_COUNT));
+  markersForMap(offersFromSerever);
+  unlockMapFilters();
+  setUserFormSubmit(successCard, errorCard);
 }, () => showAlert('не удалось загрузить данные с сервера'));
-
-setUserFormSubmit(successCard, errorCard);

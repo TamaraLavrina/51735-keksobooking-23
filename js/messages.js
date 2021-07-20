@@ -19,8 +19,6 @@ const showAlert = (message) => {
   }, 5000);
 };
 
-///
-//import { returnToInitState } from './form.js';
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 const isEnterEvent = (evt) => evt.key === 'Enter';
 const successModalTemplate = document.querySelector('#success').

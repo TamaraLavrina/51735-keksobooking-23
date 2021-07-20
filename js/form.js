@@ -1,7 +1,7 @@
 import { errorCard } from './messages.js';
 import { sendData } from './fetchAPI.js';
 import { getAddress } from './map.js';
-import { resetMap } from './map.js';
+import { resetMap, mapFilters } from './map.js';
 
 const setPrice = {
   maxValue: '1000000',
@@ -21,8 +21,9 @@ const priceInput = document.querySelector('#price');
 const addForm = document.querySelector('.ad-form');
 const resetButton = document.querySelector('.ad-form__reset');
 
+
 priceInput.addEventListener('input', () => {
-  if (priceInput.value > setPrice.maxValue) {
+  if (Number(priceInput.value) > setPrice.maxValue) {
     priceInput.setCustomValidity(`Не жадничайте. Маскимальная цена - ${setPrice.maxValue}`);
   }
   else {
@@ -70,24 +71,6 @@ getHousingType.addEventListener('change', () => {
   getHousingType.setCustomValidity('');
 });
 
-
-// const onRoomChanger = (evt) => {
-//   if (roomNumberSelect.value === 100 && capacitySelect.value === 0) {
-//     capacitySelect.setCustomValidity('');
-//   } else if (roomNumberSelect.value === 100 && capacitySelect.value !== 0) {
-//     capacitySelect.setCustomValidity('Помещение не предназначено для гостей');
-//     evt.preventDefault();
-//   }  else if (capacitySelect.value > roomNumberSelect.value) {
-//     capacitySelect.setCustomValidity('Количество гостей не может превышать количество комнат');
-//     evt.preventDefault();
-//   } else {
-//     capacitySelect.setCustomValidity('');
-
-//   }
-//   capacitySelect.reportValidity();
-
-// };
-
 const showErrors = (test) => {
   capacitySelect.setCustomValidity(test);
 };
@@ -103,13 +86,11 @@ const onRoomChanger = () => {
     error.flag = false;
     error.message = 'Помещение не предназначено для гостей';
     showErrors(error.message);
-    //evt.preventDefault();
   } else if (Number(capacitySelect.value) !== 0) {
     if (Number(capacitySelect.value) > Number(roomNumberSelect.value)) {
       error.flag = false;
       error.message = 'Количество гостей не может превышать количество комнат';
       showErrors(error.message);
-      //evt.preventDefault();
     }else {capacitySelect.setCustomValidity('');}
   }
   else if (Number(capacitySelect.value) === 0 && Number(roomNumberSelect.value) !== 100) {
@@ -130,7 +111,6 @@ const validateForm = () => {
   initForm();
   capacitySelect.addEventListener('change', onRoomChanger);
   roomNumberSelect.addEventListener('change', onRoomChanger);
-  //addForm.addEventListener('submit', onRoomChanger);
   timeInSelect.addEventListener('change', setTimeOut);
   timeOutSelect.addEventListener('change', setTimeIn);
 };
@@ -140,6 +120,7 @@ const resetMapForm = () => {
   resetMap();
   getAddress();
   initForm();
+  mapFilters.reset();
 };
 
 const returnToInitState = (evt) => {
@@ -148,31 +129,18 @@ const returnToInitState = (evt) => {
   resetMapForm();
 };
 
-// const setUserFormSubmit = (onSuccess) => {
-//   addForm.addEventListener('submit', (evt) => {
-//     evt.preventDefault();
-
-//     sendData(
-//       () => onSuccess(),
-//       () => errorCard(),
-//       new FormData(evt.target),
-//     );
-//     resetMapForm();
-//   });
-// };
-
 const setUserFormSubmit = (onSuccess) => {
   addForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const testTest = onRoomChanger();
-    if (testTest.flag) {
+    const validationResult = onRoomChanger();
+    if (validationResult.flag) {
       sendData(
         () => { onSuccess(); resetMapForm(); },
         () => errorCard(),
         new FormData(evt.target),
       );
     } else {
-      showErrors(testTest.message);
+      showErrors(validationResult.message);
     }
 
   });
@@ -183,4 +151,3 @@ resetButton.addEventListener('click', returnToInitState);
 export { setUserFormSubmit };
 export { validateForm };
 export { returnToInitState, resetMapForm };
-
