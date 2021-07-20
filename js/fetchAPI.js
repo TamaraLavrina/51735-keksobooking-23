@@ -3,7 +3,6 @@ import { unlockPageEements } from './map.js';
 import { resetMapForm } from './form.js';
 
 const SERVER = 'https://23.javascript.pages.academy/keksobooking';
-let serverData = [];
 const getData = (onSuccess) => {
   fetch(`${SERVER}/data`, {
     method: 'GET',
@@ -20,7 +19,6 @@ const getData = (onSuccess) => {
     .then((response) => response.json())
     .then((offersFromSerever) => {
       onSuccess(offersFromSerever);
-      serverData = offersFromSerever.slice();
     })
     .catch(() => {
       showAlert('Не удалось загрузить данные c сервера. Попробуйте еще раз.');
@@ -48,4 +46,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 };
 
-export {getData, sendData, serverData};
+export {getData, sendData};

@@ -1,4 +1,3 @@
-import { serverData } from './fetchAPI.js';
 import { markersForMap } from './map.js';
 import { debounce} from './debounce.js';
 
@@ -35,8 +34,8 @@ const getHousingType = (advert) => housingTypeSelect.value === FILTER_TYPE_ANY ?
 const getPrice = (advert) => priceSelect.value === FILTER_TYPE_ANY || advert.offer.price >= priceRange[priceSelect.value].min
   && advert.offer.price <= priceRange[priceSelect.value].max;
 
-const filterAdvert = () => {
-  const filteredAdvs = serverData.filter((advert) => getHousingType(advert))
+const filterAdvert = (adverts) => {
+  const filteredAdvs = adverts.filter((advert) => getHousingType(advert))
     .filter((advert) => getRoomNumber(advert))
     .filter((advert) => getGuestsNumber(advert))
     .filter((advert) => getPrice(advert))
@@ -44,7 +43,6 @@ const filterAdvert = () => {
   markersForMap(filteredAdvs);
 };
 
-const setFilterFormListener = () => filterForm.addEventListener('change', debounce(filterAdvert));
-
+const setFilterFormListener = (offersFromSerever) => filterForm.addEventListener('change', debounce(() => filterAdvert(offersFromSerever)));
 
 export {setFilterFormListener};
