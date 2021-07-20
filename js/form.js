@@ -1,6 +1,6 @@
-import { errorCard } from './messages.js';
+import { showErrorCard } from './messages.js';
 import { sendData } from './fetchAPI.js';
-import { getAddress } from './map.js';
+import { getAddress, makeMarkersForMap, serverData } from './map.js';
 import { resetMap, mapFilters } from './map.js';
 
 const setPrice = {
@@ -121,6 +121,7 @@ const resetMapForm = () => {
   getAddress();
   initForm();
   mapFilters.reset();
+  makeMarkersForMap(serverData);
 };
 
 const returnToInitState = (evt) => {
@@ -136,7 +137,7 @@ const setUserFormSubmit = (onSuccess) => {
     if (validationResult.flag) {
       sendData(
         () => { onSuccess(); resetMapForm(); },
-        () => errorCard(),
+        () => showErrorCard(),
         new FormData(evt.target),
       );
     } else {

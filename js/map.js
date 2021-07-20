@@ -1,10 +1,20 @@
-import { renderCard } from './renderCard.js';
+import { renderCard } from './render-card.js';
 const SIMILAR_ADV_COUNT = 10;
 
 const addForm = document.querySelector('.ad-form');
 const parentsFields = addForm.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
 const addressInput = document.querySelector('#address');
+
+const zoom = 13;
+const mainPin = {
+  size: [52, 52],
+  anchor: [26, 52],
+};
+const iconPin = {
+  size: [40, 40],
+  anchor: [20, 40],
+};
 
 const blockPageEements = () => {
   addForm.classList.add('ad-form--disabled');
@@ -30,13 +40,15 @@ const DefaultCoordinates = {
 };
 const getAddress = () => addressInput.value = `${DefaultCoordinates.lat}, ${DefaultCoordinates.lng}`;
 
-const map = L.map('map-canvas')
-  .on('load', () => {
+
+const map = L.map('map-canvas');
+const initMap = async ()=> {
+  map.on('load', () => {
     unlockPageEements();
-    unlockMapFilters();
     getAddress();
   })
-  .setView(DefaultCoordinates, 13);
+    .setView(DefaultCoordinates, zoom);
+};
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -47,8 +59,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: mainPin.size,
+  iconAnchor: mainPin.anchor,
 });
 
 
@@ -76,8 +88,8 @@ const createMarker = (advert) => {
 
   const icon = L.icon({
     iconUrl: './img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: iconPin.size,
+    iconAnchor: iconPin.anchor,
   });
 
   const marker = L.marker(
@@ -100,15 +112,19 @@ const createMarker = (advert) => {
     );
 };
 
-const markersForMap = (adverts) => {
+const makeMarkersForMap = (adverts) => {
   markerGroup.clearLayers();
   adverts.slice(0, SIMILAR_ADV_COUNT).forEach((advert) => {
     createMarker(advert);
   });
 };
+let serverData = [];
+const saveServerData = (offersFromSerever) => {
+  serverData = offersFromSerever.slice(0, SIMILAR_ADV_COUNT);
+};
 
-export { createMarker, getAddress};
-export { markersForMap };
-export { resetMap, mapFilters};
+export { createMarker, getAddress, initMap };
+export { makeMarkersForMap, saveServerData, serverData };
+export { resetMap, mapFilters };
 export { blockPageEements, blockMapFilters };
 export { unlockPageEements, unlockMapFilters };

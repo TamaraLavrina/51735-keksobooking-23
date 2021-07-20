@@ -1,17 +1,18 @@
-import {blockMapFilters, blockPageEements, markersForMap, unlockMapFilters, unlockPageEements} from './map.js';
+import {blockMapFilters, blockPageEements, makeMarkersForMap, unlockMapFilters, unlockPageEements, saveServerData, initMap} from './map.js';
 import {validateForm, setUserFormSubmit} from'./form.js';
 import {getData} from'./fetchAPI.js';
-import { errorCard, showAlert, successCard } from './messages.js';
+import { showErrorCard, showAlert, showSuccessCard } from './messages.js';
 import {setFilterFormListener} from './filter.js';
 
 blockPageEements();
 blockMapFilters();
+initMap().then(unlockPageEements);
 
 getData((offersFromSerever) => {
-  unlockPageEements();
-  setFilterFormListener(offersFromSerever);
+  saveServerData(offersFromSerever);
   validateForm();
-  markersForMap(offersFromSerever);
+  makeMarkersForMap(offersFromSerever);
   unlockMapFilters();
-  setUserFormSubmit(successCard, errorCard);
+  setFilterFormListener(offersFromSerever);
+  setUserFormSubmit(showSuccessCard, showErrorCard);
 }, () => showAlert('не удалось загрузить данные с сервера'));

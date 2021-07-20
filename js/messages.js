@@ -1,3 +1,5 @@
+const alertDuration = 5000;
+
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 1;
@@ -16,7 +18,7 @@ const showAlert = (message) => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, 5000);
+  }, alertDuration);
 };
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
@@ -61,19 +63,19 @@ const onErrorModalKeydown = (evt) => {
   }
 };
 
-const successCard = () => {
+const showSuccessCard = () => {
   successModal = successModalTemplate.cloneNode(true);
   document.body.insertAdjacentElement('afterbegin', successModal);
   successModal.addEventListener('click', closeSuccessModal);
   document.addEventListener('keydown', onSuccessModalKeydown);
 };
 
-const errorCard = () => {
+const showErrorCard = () => {
   errorModal = errorModalTemplate.cloneNode(true);
   document.body.insertAdjacentElement('afterbegin', errorModal);
   errorModal.addEventListener('click', closeErrorModal);
   document.addEventListener('keydown', onErrorModalKeydown);
 };
 
-export {showAlert, successCard, errorCard};
+export {showAlert, showSuccessCard, showErrorCard};
 

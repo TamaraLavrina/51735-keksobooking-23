@@ -1,4 +1,4 @@
-import { markersForMap } from './map.js';
+import { makeMarkersForMap } from './map.js';
 import { debounce} from './debounce.js';
 
 const FILTER_TYPE_ANY = 'any';
@@ -40,7 +40,7 @@ const filterAdvert = (adverts) => {
     .filter((advert) => getGuestsNumber(advert))
     .filter((advert) => getPrice(advert))
     .filter((advert) => getFeatures(advert));
-  markersForMap(filteredAdvs);
+  makeMarkersForMap(filteredAdvs);
 };
 
 const setFilterFormListener = (offersFromSerever) => filterForm.addEventListener('change', debounce(() => filterAdvert(offersFromSerever)));
