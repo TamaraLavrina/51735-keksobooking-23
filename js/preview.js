@@ -53,7 +53,7 @@ const resetPhotoPreview = () => {
 };
 
 avatarChooser.addEventListener('change',() => picPreview(avatarChooser, avatarPreview));
-photoChooser.addEventListener('change', () => changePreview(photoChooser, accomodityPhotoPreview()));
+photoChooser.addEventListener('change', () =>  changePreview(photoChooser, accomodityPhotoPreview()));
 
 export {accomodityPhotoPreview, resetPhotoPreview};
 
