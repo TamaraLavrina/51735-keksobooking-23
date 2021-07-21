@@ -3,6 +3,7 @@ import {validateForm, setUserFormSubmit} from'./form.js';
 import {getData} from'./fetchAPI.js';
 import { showErrorCard, showAlert, showSuccessCard } from './messages.js';
 import {setFilterFormListener} from './filter.js';
+import {accomodityPhotoPreview} from './preview.js';
 
 blockPageEements();
 blockMapFilters();
@@ -16,3 +17,5 @@ getData((offersFromSerever) => {
   setFilterFormListener(offersFromSerever);
   setUserFormSubmit(showSuccessCard, showErrorCard);
 }, () => showAlert('не удалось загрузить данные с сервера'));
+
+accomodityPhotoPreview();

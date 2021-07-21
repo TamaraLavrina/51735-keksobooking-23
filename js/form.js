@@ -2,6 +2,7 @@ import { showErrorCard } from './messages.js';
 import { sendData } from './fetchAPI.js';
 import { getAddress, makeMarkersForMap, serverData } from './map.js';
 import { resetMap, mapFilters } from './map.js';
+import {resetPhotoPreview} from './preview.js';
 
 const setPrice = {
   maxValue: '1000000',
@@ -122,6 +123,7 @@ const resetMapForm = () => {
   initForm();
   mapFilters.reset();
   makeMarkersForMap(serverData);
+  resetPhotoPreview();
 };
 
 const returnToInitState = (evt) => {
